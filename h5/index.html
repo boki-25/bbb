@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>反诈麻将体验</title>
+<style>
+body{
+margin:0;
+background:#075b32;
+color:white;
+font-family:Arial,"Microsoft YaHei";
+text-align:center;
+}
+.warning{
+background:#c40000;
+padding:15px;
+font-weight:bold;
+}
+.box{
+max-width:420px;
+margin:auto;
+padding:10px;
+}
+canvas{
+width:100%;
+background:#08713d;
+border:4px solid #e8c15a;
+border-radius:15px;
+}
+button,input{
+width:90%;
+padding:12px;
+margin:8px;
+border-radius:8px;
+border:0;
+font-size:16px;
+}
+button{
+background:#ffd45c;
+font-weight:bold;
+}
+.panel{
+background:#0d5b36;
+padding:10px;
+border-radius:10px;
+margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="warning">
+⚠ 网络麻将赚钱骗局反诈体验<br>
+本页面仅用于科普演示，不涉及真实赌博
+</div>
+
+<div class="box">
+
+<div class="panel">
+<h2>麻将赚钱体验</h2>
+<p>虚拟余额</p>
+<h2 id="money">1000</h2>
+</div>
+
+<canvas id="game" width="420" height="520"></canvas>
+
+<div class="panel">
+<input id="bet" value="100" type="number">
+<button onclick="startGame()">开始体验</button>
+<p id="msg"></p>
+</div>
+
+<div class="panel">
+<h3>骗局揭秘</h3>
+<p>
+体验结束后你会看到：<br>
+前期获利 → 建立信任 → 差一点成功 → 诱导继续投入<br><br>
+这是很多网络赌博诈骗常见套路。
+</p>
+</div>
+
+</div>
+
+
+<script>
+
+const canvas=document.getElementById("game");
+const ctx=canvas.getContext("2d");
+
+const tiles=["🀇","🀈","🀉","🀊","🀋","🀌"];
+
+let money=1000;
+let pile=[];
+let fall=null;
+let running=false;
+let round=0;
+
+
+function startGame(){
+
+if(running)return;
+
+let bet=Number(document.getElementById("bet").value);
+
+if(bet>money){
+alert("余额不足");
+return;
+}
+
+money-=bet;
+updateMoney();
+
+running=true;
+
+fall={
+x:180,
+y:0,
+tile:tiles[Math.floor(Math.random()*tiles.length)]
+};
+
+}
+
+
+setInterval(()=>{
+
+if(!running)return;
+
+
+fall.y+=4;
+
+
+if(fall.y>460){
+
+pile.push(fall.tile);
+
+round++;
+
+
+if(round<=3){
+
+money+=100;
+updateMoney();
+
+document.getElementById("msg").innerHTML=
+"恭喜获得模拟收益 +100";
+
+
+}else if(round>=8){
+
+running=false;
+
+document.getElementById("msg").innerHTML=
+"⚠ 揭秘：刚才模拟的是诈骗诱导过程";
+
+}
+
+
+fall={
+x:Math.random()*330,
+y:0,
+tile:tiles[Math.floor(Math.random()*tiles.length)]
+};
+
+}
+
+
+draw();
+
+
+},40);
+
+
+
+function draw(){
+
+ctx.clearRect(0,0,420,520);
+
+ctx.font="42px Arial";
+
+
+if(fall){
+
+ctx.fillText(
+fall.tile,
+fall.x,
+fall.y
+);
+
+}
+
+
+let x=20;
+let y=490;
+
+
+pile.forEach(t=>{
+
+ctx.fillText(t,x,y);
+
+x+=40;
+
+if(x>380){
+
+x=20;
+y-=45;
+
+}
+
+});
+
+
+}
+
+
+function updateMoney(){
+
+document.getElementById("money").innerHTML=money;
+
+}
+
+</script>
+
+</body>
+</html>
