@@ -1,226 +1,89 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>反诈麻将体验</title>
-<style>
-body{
-margin:0;
-background:#075b32;
-color:white;
-font-family:Arial,"Microsoft YaHei";
-text-align:center;
-}
-.warning{
-background:#c40000;
-padding:15px;
-font-weight:bold;
-}
-.box{
-max-width:420px;
-margin:auto;
-padding:10px;
-}
-canvas{
-width:100%;
-background:#08713d;
-border:4px solid #e8c15a;
-border-radius:15px;
-}
-button,input{
-width:90%;
-padding:12px;
-margin:8px;
-border-radius:8px;
-border:0;
-font-size:16px;
-}
-button{
-background:#ffd45c;
-font-weight:bold;
-}
-.panel{
-background:#0d5b36;
-padding:10px;
-border-radius:10px;
-margin-top:10px;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07152e">
+  <meta name="description" content="社区反诈宣传教育互动体验，不含真实赌博、充值或提现。">
+  <title>守住钱袋子 · 反诈体验课堂</title>
+  <style>
+    :root{font-family:Inter,"PingFang SC","Microsoft YaHei",sans-serif;color:#eef5ff;background:#050b18;--panel:#101f3e;--line:rgba(153,184,235,.2);--blue:#5297ff;--cyan:#58e2d5;--gold:#ffd36e;--red:#ff6962;--muted:#9cacc9}*{box-sizing:border-box}body{margin:0;min-width:320px;min-height:100vh;background:radial-gradient(circle at 50% 0,#193563 0,#08142b 42%,#050b18 100%)}button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+    header{min-height:70px;padding:10px 4vw;display:flex;align-items:center;justify-content:space-between;gap:18px;border-bottom:1px solid var(--line);background:rgba(4,11,25,.9)}.brand{display:flex;align-items:center;gap:12px}.shield{display:grid;place-items:center;width:42px;height:48px;color:#061321;font-weight:900;background:linear-gradient(145deg,var(--cyan),var(--blue));clip-path:polygon(50% 0,92% 15%,82% 72%,50% 100%,18% 72%,8% 15%)}.brand div{display:flex;flex-direction:column}.brand small{color:var(--muted);margin-top:3px}.nav{display:flex;align-items:center;gap:8px}.nav button,.nav a{padding:9px 12px;border:0;border-radius:9px;color:#b8c7df;background:transparent;text-decoration:none}.nav button.active,.nav button:hover,.nav a:hover{color:#fff;background:rgba(82,151,255,.14)}.notice{padding:10px 5vw;color:#16192a;background:linear-gradient(90deg,#f6c85e,#ffe39b,#f6c85e);text-align:center;font-size:14px}.notice b{margin-right:6px}
+    main{width:min(1180px,95vw);margin:22px auto 40px}.game-layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:20px}.stage,.risk,.learning-card{border:1px solid var(--line);border-radius:22px;background:linear-gradient(155deg,rgba(23,44,82,.98),rgba(8,20,44,.98));box-shadow:0 24px 70px rgba(0,0,0,.35)}.stage{padding:18px;overflow:hidden}.ribbon{margin:-18px -18px 17px;padding:9px;text-align:center;background:#29406f;color:#e3edff;font-size:13px;font-weight:800;letter-spacing:.04em}.title-row{display:flex;align-items:end;justify-content:space-between;gap:12px}.title-row small,.eyebrow{color:var(--cyan);font-weight:800;letter-spacing:.12em}.title-row h1{margin:4px 0 14px;font-size:clamp(20px,3vw,29px)}.round{align-self:center;padding:7px 11px;border:1px solid rgba(255,211,110,.3);border-radius:999px;color:var(--gold);font-size:13px}.multipliers{height:48px;padding:0 7%;display:grid;grid-template-columns:repeat(4,1fr);align-items:center;border-radius:15px 15px 7px 7px;background:linear-gradient(#287084,#164355);border:1px solid rgba(88,226,213,.3)}.multipliers span{text-align:center;color:#65bfc1;font-size:clamp(20px,3vw,30px);font-weight:950;font-style:italic}.multipliers span:first-child{color:#ffe28a;text-shadow:0 0 18px #ffd36e}
+    .board{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:12px;border-radius:7px 7px 18px 18px;background:#050d1d;overflow:hidden}.reel{display:grid;gap:8px}.tile{height:clamp(78px,10vw,116px);display:grid;place-items:center;padding:3px;border:1px solid #fff;border-radius:12px;color:#28558a;background:linear-gradient(145deg,#fff,#e2eaed 70%,#c5d0d5);box-shadow:inset 0 -6px 10px rgba(58,79,90,.2),0 4px 9px rgba(0,0,0,.35);font-family:Georgia,"STKaiti","KaiTi",serif;font-size:clamp(17px,3.2vw,37px);font-weight:900;text-align:center}.red{color:#c83439}.green{color:#237b59}.payline{position:absolute;left:6px;right:6px;top:50%;height:2px;background:linear-gradient(90deg,transparent,#ffd36e,transparent);box-shadow:0 0 12px #ffd36e}.board.spinning .reel{animation:shake .15s linear infinite;filter:blur(2px)}.board.spinning .reel:nth-child(even){animation-direction:reverse}@keyframes shake{0%,100%{transform:translateY(-6px)}50%{transform:translateY(7px)}}.result{min-height:46px;margin-top:13px;padding:11px;display:grid;place-items:center;border:1px solid rgba(255,135,96,.25);border-radius:11px;color:#ffe8ae;background:linear-gradient(90deg,rgba(143,48,58,.65),rgba(91,34,57,.65),rgba(143,48,58,.65));text-align:center}
+    .controls{display:grid;grid-template-columns:1fr 1.35fr 135px 1fr;gap:10px;align-items:center;margin-top:13px}.metric,.picker{min-height:68px;border:1px solid var(--line);border-radius:13px;background:rgba(3,12,28,.48)}.metric{display:flex;flex-direction:column;justify-content:center;padding:10px 13px}.metric span,.picker span{color:var(--muted);font-size:12px}.metric strong{color:var(--cyan);font-size:24px}.picker{display:grid;grid-template-columns:42px 1fr 42px;align-items:center;text-align:center}.picker button{height:100%;border:0;color:#fff;background:transparent;font-size:24px}.picker div{display:flex;flex-direction:column}.picker strong{color:var(--gold);font-size:21px}.spin{justify-self:center;width:116px;height:116px;border:7px solid #214c76;border-radius:50%;color:#08202c;background:radial-gradient(circle at 35% 25%,#8af2e0,#4bd2c7 57%,#2d91a2);box-shadow:0 0 0 3px #75a9c7,0 10px 28px rgba(48,205,205,.28);font-size:23px;font-weight:950}.spin small{display:block;font-size:10px}.spin:disabled{opacity:.55;cursor:not-allowed}
+    .risk{padding:20px}.risk h2{margin:5px 0 15px}.risk-item{display:grid;grid-template-columns:38px 1fr;gap:11px;padding:15px 0;border-top:1px solid var(--line);opacity:.45}.risk-item.on{opacity:1}.risk-item>span{display:grid;place-items:center;width:36px;height:36px;border-radius:9px;color:var(--cyan);background:rgba(88,226,213,.09);font-weight:900}.risk-item b{display:block;margin-bottom:4px}.risk-item p{margin:0;color:var(--muted);font-size:14px;line-height:1.55}.emergency{margin-top:16px;padding:15px;border:1px solid rgba(255,105,98,.28);border-radius:12px;color:#ffe0dd;background:rgba(190,53,60,.15);line-height:1.65}.emergency small{color:#ffaaa5}
+    .learning-card{padding:28px}.learning-card h1{margin:8px 0 18px}.progress{height:12px;border-radius:999px;background:#061127;overflow:hidden}.progress i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--blue),var(--cyan))}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0}.stats div{padding:15px;border-radius:11px;background:rgba(255,255,255,.04)}.stats strong,.stats span{display:block}.stats strong{color:var(--gold);font-size:27px}.stats span{color:var(--muted);font-size:13px}.guide{display:grid;gap:10px}.guide div{padding:14px;border-left:3px solid var(--cyan);background:rgba(255,255,255,.035)}.guide b{display:block}.guide span{color:var(--muted);font-size:14px;line-height:1.6}.reset{margin-top:20px;padding:9px 12px;border:1px solid rgba(255,105,98,.25);border-radius:8px;color:#ffaaa5;background:rgba(255,105,98,.07)}
+    .modal-bg,.welcome-bg{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:18px;background:rgba(1,5,13,.8);backdrop-filter:blur(8px)}.modal,.welcome{width:min(570px,100%);max-height:92vh;overflow:auto;padding:26px;border:1px solid rgba(88,226,213,.3);border-radius:21px;background:linear-gradient(155deg,#18305b,#0a1833);box-shadow:0 30px 100px #000}.tag{display:inline-block;padding:5px 9px;border-radius:6px;color:#06161f;background:var(--cyan);font-size:12px;font-weight:900}.modal h2,.welcome h1{margin:13px 0}.modal blockquote{margin:0 0 18px;padding:14px;border-left:4px solid var(--red);color:#ffd8d5;background:rgba(255,105,98,.1);line-height:1.6}.answers{display:grid;gap:9px;margin:13px 0 18px}.answers button{display:flex;gap:10px;align-items:center;width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;color:#dfe9fa;background:rgba(255,255,255,.04);text-align:left}.answers button.selected{border-color:var(--cyan);background:rgba(88,226,213,.1)}.answers button span{display:grid;place-items:center;flex:0 0 29px;height:29px;border-radius:7px;background:rgba(255,255,255,.1);font-weight:900}.primary{width:100%;padding:12px 16px;border:0;border-radius:9px;color:#06151e;background:linear-gradient(120deg,var(--cyan),#68aaff);font-weight:900}.explain{margin-top:14px;padding:14px;border:1px solid rgba(88,226,213,.28);border-radius:11px;background:rgba(88,226,213,.08);line-height:1.65}.welcome p{color:#bdcbe2;line-height:1.7}.welcome label{display:grid;gap:7px;margin:18px 0;color:#cdd8e9}.welcome input{padding:12px;border:1px solid var(--line);border-radius:9px;color:#fff;background:#07142b;outline:none}.welcome .safe{padding:13px;border-radius:10px;color:#08202b;background:linear-gradient(120deg,#7be9dc,#90bfff);font-weight:700}.error{margin:10px 0;padding:10px;color:#ffd2cf;background:rgba(255,105,98,.1);border-radius:8px}footer{padding:20px 4vw;display:flex;justify-content:center;flex-wrap:wrap;gap:8px 28px;border-top:1px solid var(--line);color:var(--muted);background:#040a15;font-size:13px}footer b{color:#dce7f8}
+    @media(max-width:880px){header{flex-wrap:wrap}.game-layout{grid-template-columns:1fr}.risk{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.risk h2,.risk>.eyebrow,.emergency{grid-column:1/-1}.risk-item{display:block;padding:12px;border:1px solid var(--line);border-radius:11px}.risk-item>span{margin-bottom:8px}}@media(max-width:600px){.brand small,.nav a{display:none}.brand strong{font-size:14px}.notice{text-align:left}.stage{padding:10px;border-radius:15px}.ribbon{margin:-10px -10px 13px}.round{font-size:11px}.multipliers{height:40px}.board{gap:4px;padding:6px}.reel{gap:4px}.tile{height:18vw;min-height:58px;border-radius:7px;font-size:clamp(14px,5vw,24px)}.controls{grid-template-columns:1fr 1.35fr}.spin{grid-column:1/-1;grid-row:1;width:98px;height:98px}.controls .metric:last-child{display:none}.risk{grid-template-columns:1fr}.risk h2,.risk>.eyebrow,.emergency{grid-column:auto}.risk-item{display:grid}.stats{grid-template-columns:1fr}.modal,.welcome{padding:21px}}@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+  </style>
 </head>
-
 <body>
-
-<div class="warning">
-⚠ 网络麻将赚钱骗局反诈体验<br>
-本页面仅用于科普演示，不涉及真实赌博
-</div>
-
-<div class="box">
-
-<div class="panel">
-<h2>麻将赚钱体验</h2>
-<p>虚拟余额</p>
-<h2 id="money">1000</h2>
-</div>
-
-<canvas id="game" width="420" height="520"></canvas>
-
-<div class="panel">
-<input id="bet" value="100" type="number">
-<button onclick="startGame()">开始体验</button>
-<p id="msg"></p>
-</div>
-
-<div class="panel">
-<h3>骗局揭秘</h3>
-<p>
-体验结束后你会看到：<br>
-前期获利 → 建立信任 → 差一点成功 → 诱导继续投入<br><br>
-这是很多网络赌博诈骗常见套路。
-</p>
-</div>
-
-</div>
-
-
-<script>
-
-const canvas=document.getElementById("game");
-const ctx=canvas.getContext("2d");
-
-const tiles=["🀇","🀈","🀉","🀊","🀋","🀌"];
-
-let money=1000;
-let pile=[];
-let fall=null;
-let running=false;
-let round=0;
-
-
-function startGame(){
-
-if(running)return;
-
-let bet=Number(document.getElementById("bet").value);
-
-if(bet>money){
-alert("余额不足");
-return;
-}
-
-money-=bet;
-updateMoney();
-
-running=true;
-
-fall={
-x:180,
-y:0,
-tile:tiles[Math.floor(Math.random()*tiles.length)]
-};
-
-}
-
-
-setInterval(()=>{
-
-if(!running)return;
-
-
-fall.y+=4;
-
-
-if(fall.y>460){
-
-pile.push(fall.tile);
-
-round++;
-
-
-if(round<=3){
-
-money+=100;
-updateMoney();
-
-document.getElementById("msg").innerHTML=
-"恭喜获得模拟收益 +100";
-
-
-}else if(round>=8){
-
-running=false;
-
-document.getElementById("msg").innerHTML=
-"⚠ 揭秘：刚才模拟的是诈骗诱导过程";
-
-}
-
-
-fall={
-x:Math.random()*330,
-y:0,
-tile:tiles[Math.floor(Math.random()*tiles.length)]
-};
-
-}
-
-
-draw();
-
-
-},40);
-
-
-
-function draw(){
-
-ctx.clearRect(0,0,420,520);
-
-ctx.font="42px Arial";
-
-
-if(fall){
-
-ctx.fillText(
-fall.tile,
-fall.x,
-fall.y
-);
-
-}
-
-
-let x=20;
-let y=490;
-
-
-pile.forEach(t=>{
-
-ctx.fillText(t,x,y);
-
-x+=40;
-
-if(x>380){
-
-x=20;
-y-=45;
-
-}
-
-});
-
-
-}
-
-
-function updateMoney(){
-
-document.getElementById("money").innerHTML=money;
-
-}
-
-</script>
-
+  <header>
+    <div class="brand"><span class="shield">盾</span><div><strong id="siteTitle">守住钱袋子 · 反诈体验课堂</strong><small>社区反诈宣传教育体验</small></div></div>
+    <div class="nav"><button id="gameTab" class="active">模拟体验</button><button id="learningTab">学习记录</button><a href="admin.html">内容管理</a></div>
+  </header>
+  <div class="notice"><b>重要：</b><span id="announcement">本页面为反诈教育模拟，不含真实充值、提现、支付或现金奖励。</span></div>
+  <main>
+    <section id="gamePage" class="game-layout">
+      <div class="stage">
+        <div class="ribbon">教学模拟 · 结果可被程序控制 · 禁止真实投注</div>
+        <div class="title-row"><div><small>体验场景</small><h1>“2000路中奖组合”话术模拟</h1></div><span class="round" id="round">第 1 轮</span></div>
+        <div class="multipliers"><span>×1</span><span>×2</span><span>×3</span><span>×5</span></div>
+        <div class="board" id="board"><div class="payline"></div></div>
+        <div class="result" id="result">点击开始，观察“先赢后输”的诱导套路</div>
+        <div class="controls">
+          <div class="metric"><span>虚拟积分</span><strong id="credits">1000</strong></div>
+          <div class="picker"><button id="minus" aria-label="减少积分">−</button><div><span>本轮虚拟投入</span><strong id="stake">10</strong></div><button id="plus" aria-label="增加积分">＋</button></div>
+          <button class="spin" id="spin">开始<small>仅虚拟积分</small></button>
+          <div class="metric"><span>反诈得分</span><strong id="score">0</strong></div>
+        </div>
+      </div>
+      <aside class="risk">
+        <span class="eyebrow">风险识别</span><h2>边体验边观察</h2>
+        <div class="risk-item" data-risk="1"><span>01</span><div><b>后台可控</b><p>你看到的输赢，可能是预先安排的剧本。</p></div></div>
+        <div class="risk-item" data-risk="2"><span>02</span><div><b>小利诱导</b><p>先让你小额获利，再催促加大投入。</p></div></div>
+        <div class="risk-item" data-risk="6"><span>03</span><div><b>提现设卡</b><p>以税费、保证金、解冻费为由继续要钱。</p></div></div>
+        <div class="emergency"><b>发现异常，立刻“四停”</b><br>停止操作 · 停止转账<br>停止沟通 · 停止拉人<br><small>保留证据，拨打 110 / 96110</small></div>
+      </aside>
+    </section>
+    <section id="learningPage" class="learning-card hidden">
+      <span class="eyebrow">个人学习记录</span><h1 id="learningTitle">你已经识别了 0 个诈骗节点</h1>
+      <div class="progress"><i id="progressBar" style="width:0%"></i></div>
+      <div class="stats"><div><strong id="statSpins">0</strong><span>体验轮次</span></div><div><strong id="statScore">0</strong><span>反诈得分</span></div><div><strong id="statProgress">0%</strong><span>课程进度</span></div></div>
+      <div class="guide"><div><b>1. 立即止损</b><span>停止充值、转账、缴纳保证金或解冻费。</span></div><div><b>2. 保存证据</b><span>保存网址、聊天、对方账号、收款码和转账记录。</span></div><div><b>3. 快速报警</b><span>拨打110，并尽快联系银行申请紧急止付。</span></div><div><b>4. 防止二次诈骗</b><span>警惕自称“黑客”“律师”能追回资金的人。</span></div></div>
+      <button class="reset" id="reset">重置本机体验记录</button>
+    </section>
+  </main>
+  <footer><span>本系统不提供充值、提现、支付、兑换或任何真实收益。</span><b>遇到诈骗请立即拨打 110；收到 96110 来电请及时接听。</b></footer>
+
+  <div class="welcome-bg" id="welcome">
+    <section class="welcome"><span class="tag">反诈宣传</span><h1>进入教学体验</h1><p>这里模拟网络赌博骗局的常见套路。所有数字都是虚拟积分，不能充值、提现或兑换。</p><div class="safe">这是反诈教学模拟，不是真实赌博网站</div><label>请输入体验昵称<input id="nickname" maxlength="20" placeholder="例如：幸福社区居民"></label><div class="error hidden" id="nicknameError">请输入1–20个字符的昵称</div><button class="primary" id="enter">开始体验</button></section>
+  </div>
+  <div class="modal-bg hidden" id="lessonModal"><section class="modal"><span class="tag">反诈拆解</span><h2 id="lessonTitle"></h2><blockquote id="scamMessage"></blockquote><h3 id="question"></h3><div class="answers" id="answers"></div><button class="primary" id="submitAnswer" disabled>确认选择</button><div class="explain hidden" id="explain"></div></section></div>
+
+  <script>
+    const fallback={siteTitle:'守住钱袋子 · 反诈体验课堂',announcement:'本页面为反诈教育模拟，不含真实充值、提现、支付或现金奖励。',startingCredits:1000,stakeOptions:[10,20,50,100],scriptedMode:true,lessons:[]};
+    const symbols=['🀄','發','中','八萬','●●','竹','元宝','盾'];
+    let config=fallback,nickname='',stakeIndex=0,selectedAnswer=null,currentLesson=null,spinning=false;
+    let progress={credits:1000,spinCount:0,score:0,completed:[]};
+    const el=id=>document.getElementById(id);
+    const randomSymbol=()=>symbols[Math.floor(Math.random()*symbols.length)];
+    const randomGrid=()=>Array.from({length:5},()=>Array.from({length:3},randomSymbol));
+    const storageKey=()=>`fanzha-progress-${nickname}`;
+    function save(){localStorage.setItem(storageKey(),JSON.stringify(progress))}
+    function loadUser(name){nickname=name;localStorage.setItem('fanzha-nickname',name);try{const saved=JSON.parse(localStorage.getItem(storageKey()));progress=saved&&typeof saved.credits==='number'?{credits:saved.credits,spinCount:Number(saved.spinCount)||0,score:Number(saved.score)||0,completed:Array.isArray(saved.completed)?saved.completed:[]}:{credits:config.startingCredits,spinCount:0,score:0,completed:[]}}catch{progress={credits:config.startingCredits,spinCount:0,score:0,completed:[]}}update();el('welcome').classList.add('hidden')}
+    function outcome(next){const reels=randomGrid();let multiplier=0;if(config.scriptedMode&&next===1){reels.forEach(c=>c[1]='中');multiplier=5}else if(config.scriptedMode&&next===2){for(let i=0;i<3;i++)reels[i][1]='發';multiplier=2}else if(config.scriptedMode&&next>=4){['中','發','八萬','竹','元宝'].forEach((s,i)=>reels[i][1]=s)}else{const middle=reels.map(c=>c[1]);const same=middle.filter(s=>s===middle[0]).length;multiplier=same>=5?5:same>=4?3:same>=3?2:0}return{reels,multiplier}}
+    function render(reels){el('board').querySelectorAll('.reel').forEach(n=>n.remove());reels.forEach(column=>{const reel=document.createElement('div');reel.className='reel';column.forEach(symbol=>{const tile=document.createElement('div');tile.className='tile '+(symbol==='中'?'red':symbol==='發'?'green':'');tile.textContent=symbol;reel.appendChild(tile)});el('board').insertBefore(reel,el('board').lastElementChild)})}
+    function update(){el('credits').textContent=progress.credits;el('score').textContent=progress.score;el('round').textContent=`第 ${progress.spinCount+1} 轮`;document.querySelectorAll('[data-risk]').forEach(n=>n.classList.toggle('on',progress.spinCount>=Number(n.dataset.risk)));const total=config.lessons.length||3,done=progress.completed.length,pct=Math.min(100,Math.round(done/total*100));el('learningTitle').textContent=`${nickname}已经识别了 ${done} 个诈骗节点`;el('progressBar').style.width=pct+'%';el('statSpins').textContent=progress.spinCount;el('statScore').textContent=progress.score;el('statProgress').textContent=pct+'%';el('stake').textContent=config.stakeOptions[stakeIndex]||10;el('spin').disabled=progress.credits<(config.stakeOptions[stakeIndex]||10)}
+    async function spin(){if(spinning)return;const stake=config.stakeOptions[stakeIndex]||10;if(progress.credits<stake)return;spinning=true;el('spin').disabled=true;el('board').classList.add('spinning');el('result').textContent='程序正在生成教学结果…';await new Promise(r=>setTimeout(r,850));const next=progress.spinCount+1,result=outcome(next),payout=stake*result.multiplier;progress.credits=progress.credits-stake+payout;progress.spinCount=next;render(result.reels);save();update();el('board').classList.remove('spinning');el('result').textContent=payout?`模拟获得 ${payout} 虚拟积分 · 这类“甜头”可能是诱饵`:'本轮未得分 · 诈骗平台可随时改变程序结果';spinning=false;update();const lesson=config.lessons.find((x,i)=>x.triggerSpin===next&&!progress.completed.includes(i));if(lesson)openLesson(lesson,config.lessons.indexOf(lesson))}
+    function openLesson(lesson,index){currentLesson={...lesson,index};selectedAnswer=null;el('lessonTitle').textContent=lesson.title;el('scamMessage').textContent=lesson.scamMessage;el('question').textContent=lesson.question;el('answers').innerHTML='';lesson.options.forEach((option,i)=>{const button=document.createElement('button');button.innerHTML=`<span>${String.fromCharCode(65+i)}</span>${option}`;button.onclick=()=>{selectedAnswer=i;document.querySelectorAll('#answers button').forEach((n,j)=>n.classList.toggle('selected',j===i));el('submitAnswer').disabled=false};el('answers').appendChild(button)});el('submitAnswer').classList.remove('hidden');el('submitAnswer').disabled=true;el('explain').classList.add('hidden');el('lessonModal').classList.remove('hidden')}
+    el('submitAnswer').onclick=()=>{if(selectedAnswer===null||!currentLesson)return;const correct=selectedAnswer===currentLesson.correctIndex;if(!progress.completed.includes(currentLesson.index)){progress.completed.push(currentLesson.index);if(correct)progress.score+=10;save();update()}el('submitAnswer').classList.add('hidden');el('explain').classList.remove('hidden');el('explain').innerHTML=`<b>${correct?'回答正确':'请记住正确做法'}</b><p>${currentLesson.explanation}</p><button class="primary" id="continueBtn">继续体验</button>`;el('continueBtn').onclick=()=>el('lessonModal').classList.add('hidden')};
+    el('minus').onclick=()=>{stakeIndex=Math.max(0,stakeIndex-1);update()};el('plus').onclick=()=>{stakeIndex=Math.min(config.stakeOptions.length-1,stakeIndex+1);update()};el('spin').onclick=spin;
+    el('gameTab').onclick=()=>{el('gamePage').classList.remove('hidden');el('learningPage').classList.add('hidden');el('gameTab').classList.add('active');el('learningTab').classList.remove('active')};el('learningTab').onclick=()=>{el('gamePage').classList.add('hidden');el('learningPage').classList.remove('hidden');el('gameTab').classList.remove('active');el('learningTab').classList.add('active');update()};
+    el('enter').onclick=()=>{const name=el('nickname').value.trim();if(!name||name.length>20){el('nicknameError').classList.remove('hidden');return}loadUser(name)};
+    el('reset').onclick=()=>{if(confirm('确认清除这台设备上的体验记录？')){progress={credits:config.startingCredits,spinCount:0,score:0,completed:[]};save();render(randomGrid());update()}};
+    (async()=>{try{const response=await fetch(`config.json?v=${Date.now()}`,{cache:'no-store'});if(response.ok)config=await response.json()}catch{}document.title=config.siteTitle;el('siteTitle').textContent=config.siteTitle;el('announcement').textContent=config.announcement;render(randomGrid());const savedName=localStorage.getItem('fanzha-nickname');if(savedName){el('nickname').value=savedName;loadUser(savedName)}else{progress.credits=config.startingCredits;update()}})();
+  </script>
 </body>
 </html>

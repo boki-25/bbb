@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>反诈体验内容管理</title>
+  <style>
+    :root{font-family:Inter,"PingFang SC","Microsoft YaHei",sans-serif;color:#eaf2ff;background:#071020;--panel:#111f3d;--line:rgba(159,185,230,.22);--cyan:#5ce0d6;--blue:#67a6ff;--gold:#ffd16a;--muted:#9dacC6}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 30% 0,#193461,#071020 48%);min-height:100vh}header{padding:18px 5vw;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:rgba(4,10,22,.88)}header a{color:var(--cyan);text-decoration:none}.wrap{width:min(1080px,92vw);margin:28px auto 60px}.heading{display:flex;justify-content:space-between;align-items:end;gap:20px}.heading h1{margin:5px 0;font-size:34px}.eyebrow{color:var(--cyan);font-size:12px;font-weight:900;letter-spacing:.12em}.local{padding:8px 11px;border:1px solid rgba(255,209,106,.3);border-radius:8px;color:var(--gold);background:rgba(255,209,106,.07);font-size:13px}.notice{margin:20px 0;padding:17px;border:1px solid rgba(103,166,255,.28);border-radius:13px;background:rgba(103,166,255,.08);line-height:1.7}.notice b{color:#cfe1ff}.notice p{margin:5px 0 0;color:#abbad3}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{padding:23px;border:1px solid var(--line);border-radius:17px;background:linear-gradient(155deg,rgba(20,38,73,.97),rgba(9,20,42,.97));box-shadow:0 20px 60px rgba(0,0,0,.25)}.card h2{margin:0 0 17px}.form{display:grid;gap:13px}label{display:grid;gap:6px;color:#cdd8ea;font-size:14px}input,textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:9px;color:#fff;background:#07142a;outline:none;font:inherit}textarea{min-height:82px;resize:vertical}input:focus,textarea:focus{border-color:var(--cyan)}.row{display:grid;grid-template-columns:1fr 1fr;gap:11px}.check{display:flex;align-items:center;gap:10px;padding:12px;background:rgba(255,255,255,.035);border-radius:10px}.check input{width:20px;height:20px;accent-color:var(--cyan)}.lesson{margin-top:12px;border:1px solid var(--line);border-radius:13px;overflow:hidden}.lesson summary{padding:14px;cursor:pointer;font-weight:800;background:rgba(255,255,255,.035)}.lesson .inside{display:grid;gap:12px;padding:15px}.primary{padding:13px 17px;border:0;border-radius:10px;color:#06131f;background:linear-gradient(120deg,var(--cyan),var(--blue));font-weight:900;cursor:pointer}.secondary{padding:11px 14px;border:1px solid var(--line);border-radius:9px;color:#dce7f8;background:rgba(255,255,255,.04);cursor:pointer}.actions{position:sticky;bottom:15px;margin-top:20px;padding:13px;display:flex;justify-content:flex-end;gap:10px;border:1px solid var(--line);border-radius:13px;background:rgba(5,13,29,.9);backdrop-filter:blur(12px)}.steps{counter-reset:step;display:grid;gap:13px}.step{counter-increment:step;display:grid;grid-template-columns:38px 1fr;gap:10px}.step:before{content:counter(step);display:grid;place-items:center;width:34px;height:34px;border-radius:9px;color:#06131f;background:var(--cyan);font-weight:900}.step b,.step span{display:block}.step span{margin-top:4px;color:var(--muted);font-size:14px;line-height:1.5}.warning{margin-top:17px;padding:13px;border:1px solid rgba(255,102,94,.25);border-radius:10px;color:#ffd0cd;background:rgba(255,102,94,.08);font-size:14px;line-height:1.6}.status{margin-right:auto;align-self:center;color:var(--cyan);font-size:14px}@media(max-width:760px){.grid{grid-template-columns:1fr}.heading{align-items:start;flex-direction:column}.row{grid-template-columns:1fr}.actions{flex-wrap:wrap}.status{width:100%}.primary,.secondary{flex:1}} 
+  </style>
+</head>
+<body>
+  <header><strong>反诈体验内容管理</strong><a href="index.html">返回居民前台</a></header>
+  <main class="wrap">
+    <div class="heading"><div><span class="eyebrow">GITHUB PAGES 版本</span><h1>修改前台教学内容</h1></div><span class="local">配置文件管理，不会直接修改GitHub</span></div>
+    <div class="notice"><b>为什么要下载再上传？</b><p>GitHub Pages没有服务器后台，这个页面不能直接写入你的仓库。你在这里改好内容，下载新的 config.json，再上传到仓库根目录即可全站更新。</p></div>
+    <div class="grid">
+      <section class="card">
+        <h2>网站设置</h2>
+        <div class="form">
+          <label>网站标题<input id="siteTitle"></label>
+          <label>顶部反诈公告<textarea id="announcement"></textarea></label>
+          <div class="row"><label>初始虚拟积分<input id="startingCredits" type="number" min="100"></label><label>积分档位（逗号分隔）<input id="stakeOptions"></label></div>
+          <label class="check"><input id="scriptedMode" type="checkbox"><span>启用“先赢后输”教学脚本</span></label>
+        </div>
+        <h2 style="margin-top:25px">教学节点</h2>
+        <div id="lessons"></div>
+      </section>
+      <aside class="card">
+        <h2>更新网站的四个步骤</h2>
+        <div class="steps">
+          <div class="step"><div><b>修改并检查内容</b><span>确认诈骗话术、正确答案和报警提示准确。</span></div></div>
+          <div class="step"><div><b>点击“下载 config.json”</b><span>浏览器会保存一个新的同名配置文件。</span></div></div>
+          <div class="step"><div><b>进入 boki-25/bbb 仓库</b><span>点击“添加文件”→“上传文件”，把 config.json 放在根目录。</span></div></div>
+          <div class="step"><div><b>提交更改并等待</b><span>点击绿色提交按钮，通常稍等片刻网站就会更新。</span></div></div>
+        </div>
+        <div class="warning"><b>安全提醒：</b>这个页面是公开的，但访客只能在自己电脑上生成配置，不能直接修改你的GitHub。只有登录你GitHub账号的人才能真正更新网站。</div>
+      </aside>
+    </div>
+    <div class="actions"><span class="status" id="status"></span><button class="secondary" id="reload">恢复仓库当前配置</button><button class="primary" id="download">下载 config.json</button></div>
+  </main>
+  <script>
+    let config={siteTitle:'守住钱袋子 · 反诈体验课堂',announcement:'本页面为反诈教育模拟，不含真实充值、提现、支付或现金奖励。',startingCredits:1000,stakeOptions:[10,20,50,100],scriptedMode:true,lessons:[]};
+    const el=id=>document.getElementById(id);
+    function lessonHtml(lesson,index){return `<details class="lesson" ${index===0?'open':''}><summary>节点 ${index+1} · <span data-title>${escapeHtml(lesson.title)}</span></summary><div class="inside"><div class="row"><label>触发轮次<input data-field="triggerSpin" type="number" min="1" value="${lesson.triggerSpin}"></label><label>正确答案序号（第几个）<input data-field="correctIndex" type="number" min="1" max="${lesson.options.length}" value="${lesson.correctIndex+1}"></label></div><label>节点标题<input data-field="title" value="${escapeAttr(lesson.title)}"></label><label>模拟诈骗话术<textarea data-field="scamMessage">${escapeHtml(lesson.scamMessage)}</textarea></label><label>反诈问题<input data-field="question" value="${escapeAttr(lesson.question)}"></label><label>答案选项（每行一个）<textarea data-field="options">${escapeHtml(lesson.options.join('\n'))}</textarea></label><label>正确做法解析<textarea data-field="explanation">${escapeHtml(lesson.explanation)}</textarea></label></div></details>`}
+    function escapeHtml(value){return String(value).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+    function escapeAttr(value){return escapeHtml(value).replace(/"/g,'&quot;')}
+    function render(){el('siteTitle').value=config.siteTitle;el('announcement').value=config.announcement;el('startingCredits').value=config.startingCredits;el('stakeOptions').value=config.stakeOptions.join(', ');el('scriptedMode').checked=config.scriptedMode;el('lessons').innerHTML=config.lessons.map(lessonHtml).join('')}
+    function collect(){const lessons=[...document.querySelectorAll('.lesson')].map(node=>{const get=field=>node.querySelector(`[data-field="${field}"]`).value;const options=get('options').split('\n').map(s=>s.trim()).filter(Boolean);return{triggerSpin:Number(get('triggerSpin')),title:get('title').trim(),scamMessage:get('scamMessage').trim(),question:get('question').trim(),options,correctIndex:Number(get('correctIndex'))-1,explanation:get('explanation').trim()}});return{siteTitle:el('siteTitle').value.trim(),announcement:el('announcement').value.trim(),startingCredits:Number(el('startingCredits').value),stakeOptions:el('stakeOptions').value.split(',').map(Number).filter(n=>Number.isFinite(n)&&n>0),scriptedMode:el('scriptedMode').checked,lessons}}
+    function validate(data){if(!data.siteTitle||!data.announcement)return'网站标题和公告不能为空';if(data.startingCredits<100)return'初始虚拟积分不能低于100';if(!data.stakeOptions.length)return'至少需要一个积分档位';for(let i=0;i<data.lessons.length;i++){const l=data.lessons[i];if(!l.title||!l.question||!l.explanation||l.options.length<2)return`节点${i+1}内容不完整`;if(l.correctIndex<0||l.correctIndex>=l.options.length)return`节点${i+1}的正确答案序号不正确`}return''}
+    async function load(){try{const response=await fetch(`config.json?v=${Date.now()}`,{cache:'no-store'});if(!response.ok)throw new Error();config=await response.json();render();el('status').textContent='已载入仓库当前配置'}catch{el('status').textContent='配置读取失败，请确认config.json在根目录'}}
+    el('download').onclick=()=>{const data=collect(),error=validate(data);if(error){el('status').textContent=error;return}const blob=new Blob([JSON.stringify(data,null,2)+'\n'],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='config.json';a.click();URL.revokeObjectURL(url);el('status').textContent='下载完成，请上传替换仓库根目录的config.json'};
+    el('reload').onclick=()=>{if(confirm('确认放弃当前未下载的修改？'))load()};load();
+  </script>
+</body>
+</html>
