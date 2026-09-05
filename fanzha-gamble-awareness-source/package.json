@@ -1,0 +1,12 @@
+{
+  "name": "fanzha-gamble-awareness",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": ["apps/*"],
+  "scripts": {
+    "dev": "npm run dev -w @fanzha/api & npm run dev -w @fanzha/web",
+    "build": "npm run build -w @fanzha/api && npm run build -w @fanzha/web",
+    "typecheck": "npm run typecheck -w @fanzha/api && npm run typecheck -w @fanzha/web",
+    "test": "npm run test -w @fanzha/api"
+  }
+}
