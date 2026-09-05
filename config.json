@@ -1,36 +1,12 @@
 {
-  "siteTitle": "守住钱袋子 · 反诈体验课堂",
-  "announcement": "本页面为反诈教育模拟，不含真实充值、提现、支付或现金奖励。",
-  "startingCredits": 1000,
-  "stakeOptions": [10, 20, 50, 100],
-  "scriptedMode": true,
-  "lessons": [
-    {
-      "triggerSpin": 3,
-      "title": "第一步：先让你尝到甜头",
-      "scamMessage": "“新用户必中！再玩几把，收益还能翻倍。”",
-      "question": "遇到连续小额盈利，最安全的做法是什么？",
-      "options": ["继续加大投入", "停止操作并核实平台资质", "邀请亲友一起参加"],
-      "correctIndex": 1,
-      "explanation": "诈骗平台常先制造小额盈利，让人放松警惕。应立即停止，并通过官方渠道核实。"
-    },
-    {
-      "triggerSpin": 6,
-      "title": "第二步：诱导充值解锁大奖",
-      "scamMessage": "“只差最后一次充值，完成后可立即提现全部奖金。”",
-      "question": "对方要求充值才能提现，你应该怎么做？",
-      "options": ["按要求充值", "借钱完成任务", "拒绝转账、保存证据并报警"],
-      "correctIndex": 2,
-      "explanation": "正规平台不会要求先充值、缴税或交保证金才能提现。不要继续转账。"
-    },
-    {
-      "triggerSpin": 9,
-      "title": "第三步：提现时层层设卡",
-      "scamMessage": "“账户异常，请再缴纳20%保证金解除风控。”",
-      "question": "已经转过钱且无法提现，下一步是什么？",
-      "options": ["继续交保证金", "联系警方和银行止付", "等待客服处理"],
-      "correctIndex": 1,
-      "explanation": "立即停止操作，保留聊天、账户和转账记录，联系银行并拨打110或96110。"
-    }
+  "siteName": "遇见 · 真诚交友",
+  "cityOptions": ["北京", "上海", "广州", "深圳", "杭州", "成都", "武汉", "南京", "其他"],
+  "demoProfiles": [
+    { "id": "demo-1", "name": "小雨", "age": 28, "gender": "女", "city": "杭州", "occupation": "视觉设计师", "intent": "认真恋爱", "bio": "喜欢展览、徒步和小动物，希望认识真诚、有边界感的人。", "tags": ["摄影", "旅行", "猫咪"], "color": "#f06f8e", "likesBack": true },
+    { "id": "demo-2", "name": "林川", "age": 31, "gender": "男", "city": "上海", "occupation": "产品经理", "intent": "以结婚为目的", "bio": "工作稳定，周末喜欢做饭和骑行。希望两个人能认真沟通、共同成长。", "tags": ["烹饪", "骑行", "电影"], "color": "#4d88e8", "likesBack": false },
+    { "id": "demo-3", "name": "安然", "age": 30, "gender": "女", "city": "成都", "occupation": "教师", "intent": "认真恋爱", "bio": "性格温和，喜欢阅读和音乐。期待一段尊重彼此生活节奏的关系。", "tags": ["阅读", "音乐", "咖啡"], "color": "#bd78dc", "likesBack": true },
+    { "id": "demo-4", "name": "周屿", "age": 33, "gender": "男", "city": "深圳", "occupation": "工程师", "intent": "以结婚为目的", "bio": "理性但不无趣，喜欢游泳、旅行和研究新事物。重视坦诚和责任感。", "tags": ["游泳", "科技", "旅行"], "color": "#28a89c", "likesBack": false },
+    { "id": "demo-5", "name": "苏晴", "age": 27, "gender": "女", "city": "南京", "occupation": "营养师", "intent": "先交朋友", "bio": "热爱健康生活，也喜欢偶尔放空。想认识积极、善良、有趣的新朋友。", "tags": ["健身", "美食", "露营"], "color": "#e49445", "likesBack": true },
+    { "id": "demo-6", "name": "陈默", "age": 29, "gender": "男", "city": "武汉", "occupation": "摄影师", "intent": "认真恋爱", "bio": "记录城市，也享受安静。希望遇到愿意分享日常、相互支持的人。", "tags": ["摄影", "音乐", "宠物"], "color": "#6375d7", "likesBack": true }
   ]
 }
